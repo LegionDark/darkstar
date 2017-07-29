@@ -1062,6 +1062,7 @@ MOD_TAME               = 304
 MOD_RECYCLE            = 305
 MOD_ZANSHIN            = 306
 MOD_UTSUSEMI           = 307
+MOD_ENHANCES_UTSUSEMI  = 842 -- Extra shadows on Utsusemi
 MOD_NINJA_TOOL         = 308
 MOD_BLUE_POINTS        = 309
 MOD_DMG_REFLECT        = 316
@@ -1358,7 +1359,6 @@ MOD_ALL_WSDMG_FIRST_HIT     = 841 -- Generic (all Weaponskills) damage, first hi
 -- The spares take care of finding the next ID to use so long as we don't forget to list IDs that have been freed up by refactoring.
 
 -- 570 - 825 used by WS DMG mods these are not spares.
--- MOD_SPARE = 842 -- stuff
 -- MOD_SPARE = 843 -- stuff
 -- MOD_SPARE = 844 -- stuff
 -- MOD_SPARE = 845 -- stuff

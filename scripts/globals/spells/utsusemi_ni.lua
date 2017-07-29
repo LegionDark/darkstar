@@ -1,7 +1,6 @@
 -----------------------------------------
 -- Spell: Utsusemi: Ni
 -----------------------------------------
-
 require("scripts/globals/status");
 
 -----------------------------------------
@@ -14,43 +13,36 @@ end;
 
 function onSpellCast(caster,target,spell)
     local effect = target:getStatusEffect(EFFECT_COPY_IMAGE);
-    
-    -- Get extras shadows
-    local bonusShadow = 0;
-    if caster:getEquipID(SLOT_FEET) == 11156 then
-        bonusShadow = 1;
+    local icon = EFFECT_COPY_IMAGE_3;
+
+    -- Set base shadows and which of ichi/ni/san this is
+    local shadows = 3;
+    local tier = 2; -- Ni!!
+
+    -- Set extras shadows
+    if (caster:getMainJob() == JOBS.NIN) then
+        shadows = shadows+1;
     end
-    
+    if (caster:getMod(MOD_ENHANCES_UTSUSEMI) > 0) then
+        shadows = shadows+1;
+    end
+
+    if (shadows > 3) then
+        icon = EFFECT_COPY_IMAGE_4;
+    end
+
     if (effect == nil) then
-        if caster:getMainJob() == JOBS.NIN then
-            target:addStatusEffectEx(EFFECT_COPY_IMAGE,EFFECT_COPY_IMAGE_4, 4 + bonusShadow,0,900);
-            target:setMod(MOD_UTSUSEMI, 4 + bonusShadow);
-            spell:setMsg(230);
-        else
-            target:addStatusEffectEx(EFFECT_COPY_IMAGE,EFFECT_COPY_IMAGE_3, 3 + bonusShadow,0,900);
-            target:setMod(MOD_UTSUSEMI, 3 + bonusShadow);
-            spell:setMsg(230);
-        end
-    elseif caster:getMainJob() == JOBS.NIN then
-        if (effect:getPower() <= 4) then
-            spell:setMsg(230);
-            effect:setPower(4);
-            effect:setIcon(EFFECT_COPY_IMAGE_4);
-            effect:resetStartTime();
-            target:setMod(MOD_UTSUSEMI, 4 + bonusShadow);
-        else
-            spell:setMsg(75);
-        end
+        target:addStatusEffectEx(EFFECT_COPY_IMAGE, icon, shadows, 0, 900, 0, tier);
+        target:setMod(MOD_UTSUSEMI, shadows);
+        spell:setMsg(230);
+    elseif (effect:getTier() <= tier) then -- Don't overwrite San!
+        effect:setPower(shadows);
+        effect:setIcon(icon);
+        effect:resetStartTime();
+        target:setMod(MOD_UTSUSEMI, shadows);
+        spell:setMsg(230);
     else
-        if (effect:getPower() <= 3) then
-            spell:setMsg(230);
-            effect:setPower(3);
-            effect:setIcon(EFFECT_COPY_IMAGE_3);
-            effect:resetStartTime();
-            target:setMod(MOD_UTSUSEMI, 3 + bonusShadow);
-        else
-            spell:setMsg(75);
-        end
+        spell:setMsg(75); -- No effect
     end
 
     return EFFECT_COPY_IMAGE;

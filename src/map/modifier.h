@@ -388,6 +388,7 @@ enum class Mod
 
     // Ninja
     UTSUSEMI                  = 307, // Everyone's favorite --tracks shadows.
+    ENHANCES_UTSUSEMI         = 842, // Extra shadows on Utsusemi
     NINJA_TOOL                = 308, // Percent chance to not use a tool.
     NIN_NUKE_BONUS            = 522, // magic attack bonus for NIN nukes
 
@@ -652,7 +653,6 @@ enum class Mod
     ALL_WSDMG_FIRST_HIT       = 841 // Generic (all Weaponskills) damage, first hit only.
 
     // 570 through 825 used by WS DMG mods these are not spares.
-    // SPARE = 842, // stuff
     // SPARE = 843, // stuff
     // SPARE = 844, // stuff
     // SPARE = 845, // stuff
